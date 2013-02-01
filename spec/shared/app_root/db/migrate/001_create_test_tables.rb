@@ -8,16 +8,23 @@ class CreateTestTables < ActiveRecord::Migration
 
     create_table :topics do |t|
       t.string :subject
+      t.references :forum
       t.references :author
     end
 
     create_table :posts do |t|
       t.text :body
+      t.references :topic
       t.references :author
     end
 
     create_table :users do |t|
       t.string :email
+    end
+
+    create_table :profiles do |t|
+      t.references :user
+      t.text :hobbies
     end
 
   end

@@ -8,7 +8,7 @@ describe EdgeRider::CollectColumn do
       Forum.create!(:id => 1, :name => 'Name 1')
       Forum.create!(:id => 2, :name => 'Name 2')
       Forum.create!(:id => 3, :name => 'Name 3')
-      scope = EdgeRider::Util.append_scope_conditions(Forum, :id => [2, 3])
+      scope = Forum.scoped(:conditions => { :id => [2, 3] })
       scope.collect_column(:name).should =~ ['Name 2', 'Name 3']
     end
 
@@ -30,7 +30,7 @@ describe EdgeRider::CollectColumn do
         Forum.create!(:id => 1, :name => 'Name 1')
         Forum.create!(:id => 2, :name => 'Name 2')
         Forum.create!(:id => 3, :name => 'Name 2')
-        scope = EdgeRider::Util.append_scope_conditions(Forum, :id => [2, 3])
+        scope = Forum.scoped(:conditions => { :id => [2, 3] })
         scope.collect_column(:name, :distinct => true).should =~ ['Name 2']
       end
 

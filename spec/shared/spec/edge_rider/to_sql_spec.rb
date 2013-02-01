@@ -2,9 +2,13 @@ require 'spec_helper'
 
 describe EdgeRider::ToSql do
 
-  it "should return the SQL the scope would produce" do
-    scope = EdgeRider::Util.append_scope_conditions(Forum, :name => 'Name')
-    scope.to_sql.should =~ /\ASELECT (`forums`\.)?\* FROM `forums`\s+WHERE \(?`forums`.`name` = 'Name'\)?\s*\z/
+  describe '#to_sql' do
+
+    it "should return the SQL the scope would produce" do
+      scope = Forum.scoped(:conditions => { :name => 'Name' })
+      scope.to_sql.should =~ EdgeRider::Development.selects_star_with_conditions_pattern('forums', "`forums`.`name` = 'Name'")
+    end
+
   end
 
 end

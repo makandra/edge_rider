@@ -14,21 +14,13 @@ module EdgeRider
       column_name
     end
 
-    #def scope_to_sql(options = {})
-    #  if Rails.version < '3'
-    #    scope.construct_finder_sql(options)
-    #  else
-    #    scope.scoped(options).to_sql
-    #  end
-    #end
-
-    def append_scope_conditions(scope, conditions)
-      if scope.respond_to?(:where)
-        # Rails 3
-        scope.where(conditions)
+    def exclusive_query(model, conditions)
+      if Rails.version < '3'
+        model.send(:with_exclusive_scope) do
+          model.scoped(:conditions => conditions)
+        end
       else
-        # Rails 2
-        scope.scoped(:conditions => conditions)
+        model.unscoped.where(conditions)
       end
     end
 

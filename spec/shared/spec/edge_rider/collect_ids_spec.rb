@@ -20,7 +20,7 @@ describe EdgeRider::CollectIds do
         Forum.create!(:id => 1, :name => 'Name 1')
         Forum.create!(:id => 2, :name => 'Name 2')
         Forum.create!(:id => 3, :name => 'Name 2')
-        scope = EdgeRider::Util.append_scope_conditions(Forum, :name => 'Name 2')
+        scope = Forum.scoped(:conditions => { :name => 'Name 2' })
         scope.collect_ids.should =~ [2, 3]
       end
 

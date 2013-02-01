@@ -3,7 +3,7 @@ module EdgeRider
 
     def collect_column(column_name, find_options = {})
       distinct = find_options.delete(:distinct)
-      qualified_column_name = "#{connection.quote_table_name(table_name)}.#{connection.quote_column_name(column_name)}"
+      qualified_column_name = EdgeRider::Util.qualify_column_name(self, column_name)
       select = distinct ? "DISTINCT #{qualified_column_name}" : qualified_column_name
       query = scoped(find_options.merge(:select => select)).to_sql
       raw_values = connection.select_values(query)
