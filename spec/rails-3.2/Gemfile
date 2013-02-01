@@ -1,0 +1,12 @@
+source :rubygems
+
+gem 'rails', '~>3.2.0'
+gem 'rspec'
+gem 'rspec-rails'
+gem 'mysql2'
+gem 'rspec_candy'
+gem 'ruby-debug', :platforms => :ruby_18
+gem 'database_cleaner'
+gem 'andand'
+
+gem 'edge_rider', :path => '../..'
