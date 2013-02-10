@@ -16,6 +16,7 @@ class CreateTestTables < ActiveRecord::Migration
       t.text :body
       t.references :topic
       t.references :author
+      t.timestamps
     end
 
     create_table :users do |t|

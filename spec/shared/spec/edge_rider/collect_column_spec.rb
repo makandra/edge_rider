@@ -18,10 +18,19 @@ describe EdgeRider::CollectColumn do
       Forum.collect_column(:name).should =~ ['Name 1', 'Name 2']
     end
 
+    it 'should cast the collected value to their equivalent Ruby type' do
+      Post.create!
+      Post.collect_column(:created_at).first.should be_a(Time)
+    end
+
     it 'should not instantiate ActiveRecord objects when collecting values' do
       Forum.create!(:name => 'Name')
       Forum.should_not_receive(:new)
       Forum.collect_column(:name).should == ['Name']
+    end
+
+    it 'should qualify the column name to resolve any ambiguities' do
+      expect { Topic.scoped(:joins => :forum).collect_column(:id) }.to_not raise_error
     end
 
     context 'with :distinct option' do
