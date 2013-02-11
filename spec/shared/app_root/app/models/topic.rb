@@ -1,5 +1,5 @@
 class Topic < ActiveRecord::Base
-  include AllowSettingIdsOnCreate
+  include AllowSettingIdOnCreate
 
   belongs_to :forum
   has_many :posts

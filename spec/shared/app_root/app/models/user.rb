@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  include AllowSettingIdsOnCreate
+  include AllowSettingIdOnCreate
 
   has_many :posts
   has_many :topics

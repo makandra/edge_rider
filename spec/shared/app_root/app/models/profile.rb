@@ -1,5 +1,5 @@
 class Profile < ActiveRecord::Base
-  include AllowSettingIdsOnCreate
+  include AllowSettingIdOnCreate
 
   belongs_to :user
 

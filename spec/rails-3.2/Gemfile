@@ -8,5 +8,6 @@ gem 'rspec_candy'
 gem 'ruby-debug', :platforms => :ruby_18
 gem 'database_cleaner'
 gem 'andand'
+gem 'has_defaults'
 
 gem 'edge_rider', :path => '../..'

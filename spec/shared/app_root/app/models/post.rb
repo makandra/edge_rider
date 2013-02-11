@@ -1,5 +1,5 @@
 class Post < ActiveRecord::Base
-  include AllowSettingIdsOnCreate
+  include AllowSettingIdOnCreate
 
   belongs_to :topic
   belongs_to :author, :class_name => 'User'
