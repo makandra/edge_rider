@@ -18,6 +18,14 @@ describe EdgeRider::TraverseAssociation do
       traversed_scope.to_a.should =~ [forum_1, forum_3]
     end
 
+    it 'should raise an error when traversing a belongs_to association with conditions, until this is implemented' do
+      forum = Forum.create!(:trashed => true)
+      topic = Topic.create(:forum => forum)
+
+      scope = Topic.scoped(:conditions => { :id => topic.id })
+      expect { scope.traverse_association(:active_forum) }.to raise_error(NotImplementedError)
+    end
+
     it 'should traverse a belongs_to association with conditions'
 
     it 'should traverse multiple belongs_to associations in different model classes' do
@@ -53,6 +61,14 @@ describe EdgeRider::TraverseAssociation do
       traversed_scope.to_a.should =~ [post_1, post_3a, post_3b]
     end
 
+    it 'should raise an error when traversing a has_many association with conditions, until this is implemented' do
+      forum = Forum.create!
+      topic = Topic.create(:forum => forum, :trashed => true)
+
+      scope = Forum.scoped(:conditions => { :id => forum.id })
+      expect { scope.traverse_association(:active_topics) }.to raise_error(NotImplementedError)
+    end
+
     it 'should traverse a has_many association with conditions'
 
     it 'should traverse a has_many :through association' do
@@ -83,6 +99,14 @@ describe EdgeRider::TraverseAssociation do
       traversed_scope = scope.traverse_association(:profile)
       EdgeRider::Util.scope?(traversed_scope).should be_true
       traversed_scope.to_a.should =~ [profile_2, profile_3]
+    end
+
+    it 'should raise an error when traversing a has_many association with conditions, until this is implemented' do
+      user = User.create!
+      profile = Profile.create(:user => user, :trashed => true)
+
+      scope = User.scoped(:conditions => { :id => user.id })
+      expect { scope.traverse_association(:active_profile) }.to raise_error(NotImplementedError)
     end
 
     it 'should traverse a has_one association with conditions'

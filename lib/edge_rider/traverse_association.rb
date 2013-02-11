@@ -13,6 +13,8 @@ module EdgeRider
         reflection = scope.reflect_on_association(association) or raise UnknownAssociation, "Could not find association: #{self.name}##{association}"
         foreign_key = reflection.respond_to?(:foreign_key) ? reflection.foreign_key : reflection.primary_key_name
 
+        raise NotImplementedError if reflection.options[:conditions].present?
+
         if reflection.macro == :belongs_to
           ids = scope.collect_column(foreign_key, :distinct => true)
           scope = EdgeRider::Util.exclusive_query(reflection.klass, :id => ids)

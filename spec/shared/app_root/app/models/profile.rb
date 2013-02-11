@@ -3,4 +3,6 @@ class Profile < ActiveRecord::Base
 
   belongs_to :user
 
+  has_defaults :trashed => false
+
 end
