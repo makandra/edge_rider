@@ -24,5 +24,9 @@ module EdgeRider
       end
     end
 
+    def scope?(object)
+      object.respond_to?(:scoped)
+    end
+
   end
 end
