@@ -8,7 +8,7 @@ In ActiveRecord, relations (or scopes) allow you to construct complex queries pi
 and then trigger a query or update at a precisely defined moment. If you write any kind
 of scalable code with ActiveRecord, you are probably using relations (or scopes) to do it.
 
-This gem, Edge Rider, was created with two intents:
+Edge Rider was created with two intents:
 
 1. Provides a number of utility methods to facilitate hardcore work with relations.
 2. Provide a stable API for working with relations across multiple versions of Rails, since
