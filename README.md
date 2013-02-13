@@ -11,8 +11,8 @@ of scalable code with ActiveRecord, you are probably using relations (or scopes)
 Edge Rider was created with two intents:
 
 1. Provides a number of utility methods to facilitate hardcore work with relations.
-2. Provide a stable API for working with relations across multiple versions of Rails, since
-Rails has a tradition of breaking details of its relation API every other release.
+2. Provide a stable API for working with relations across multiple versions of Rails (since
+Rails has a tradition of breaking details of its relation API every other release).
 
 It has been tested with Rails 2.3, 3.0 and 3.2.
 
