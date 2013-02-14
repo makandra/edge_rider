@@ -168,6 +168,18 @@ It now uses these IDs to return a new relation that has **no joins** and a singl
     SELECT * FROM sites WHERE sites.user_id IN (3, 17, 103)
 
 
+### Preload associations for loaded ActiveRecords
+
+Sometimes you want to fetch associations for records that you already instantiated, e.g. when it has deeply nested associations.
+
+Edge Rider gives your model classes a method `.preload_associations`. The method can be used to preload associations for loaded objects like this:
+
+    @user = User.find(params[:id])
+    User.preload_associations [@user], { :threads => { :posts => :author }, :messages => :sender }
+
+*Implementation note*: Rails 2.3 and Rails 3.0 already has a method [`.preload_associations`](http://apidock.com/rails/ActiveRecord/AssociationPreload/ClassMethods/preload_associations)
+which Edge Rider merely makes public. Edge Rider ports this method forward to Rails 3.1+.
+
 
 Installation
 ------------
@@ -177,7 +189,6 @@ In your `Gemfile` say:
     gem 'edge_rider'
 
 Now run `bundle install` and restart your server.
-
 
 
 Development
