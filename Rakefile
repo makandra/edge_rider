@@ -7,9 +7,14 @@ task :default => 'all:spec'
 namespace :travis_ci do
 
   desc 'Things to do before Travis CI begins'
-  task :prepare do
+  task :prepare => :slimgems do
     Rake::Task['travis_ci:create_database'].invoke &&
     Rake::Task['travis_ci:create_database_yml'].invoke
+  end
+
+  desc 'Install slimgems'
+  task :slimgems do
+    system('gem install slimgems')
   end
 
   desc 'Creates a test database'
