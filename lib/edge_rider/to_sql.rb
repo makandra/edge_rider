@@ -5,7 +5,7 @@ module EdgeRider
       construct_finder_sql({})
     end
 
-    if Rails.version < '3'
+    if Util.activerecord2?
       ActiveRecord::Base.extend(self)
     end
 

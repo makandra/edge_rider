@@ -2,7 +2,7 @@ PATH
   remote: ../..
   specs:
     edge_rider (0.2.2)
-      rails
+      activerecord
 
 GEM
   remote: http://rubygems.org/

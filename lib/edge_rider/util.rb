@@ -15,7 +15,7 @@ module EdgeRider
     end
 
     def exclusive_query(model, conditions)
-      if Rails.version < '3'
+      if activerecord2?
         model.send(:with_exclusive_scope) do
           model.scoped(:conditions => conditions)
         end
@@ -26,6 +26,10 @@ module EdgeRider
 
     def scope?(object)
       object.respond_to?(:scoped)
+    end
+
+    def activerecord2?
+      ActiveRecord::VERSION::MAJOR < 3
     end
 
   end
