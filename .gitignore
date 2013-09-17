@@ -3,8 +3,6 @@ pkg
 *.gem
 .idea
 app_root/log/*
-Gemfile.lock
 spec/shared/app_root/db/*.db
 spec/shared/app_root/config/database.yml
-
 
