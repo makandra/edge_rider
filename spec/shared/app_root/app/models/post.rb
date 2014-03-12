@@ -6,4 +6,10 @@ class Post < ActiveRecord::Base
 
   has_defaults :trashed => false
 
+  if respond_to?(:named_scope)
+    named_scope :these, lambda { |array| { :conditions => { :id => array } } }
+  else
+    scope :these, lambda { |array| { :conditions => { :id => array } } }
+  end
+
 end

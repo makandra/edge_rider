@@ -38,6 +38,8 @@ module EdgeRider
     end
 
     ::ActiveRecord::Base.send(:extend, ActiveRecordScope)
+    ::ActiveRecord::Associations::HasManyAssociation.send(:include, ActiveRecordScope)
+    ::ActiveRecord::Associations::HasManyThroughAssociation.send(:include, ActiveRecordScope)
 
     module Fixnum
 
