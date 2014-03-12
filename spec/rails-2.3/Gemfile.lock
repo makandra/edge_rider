@@ -1,7 +1,7 @@
 PATH
   remote: ../..
   specs:
-    edge_rider (0.2.3)
+    edge_rider (0.2.4)
       activerecord
 
 GEM
