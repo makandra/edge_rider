@@ -135,11 +135,11 @@ if it was evaluated right now. For this, Edge Rider gives your relations a metho
 
     # Rails 2 scope
     Post.scoped(:conditions => { :id => [1, 2] }).to_sql 
-    # => SELECT `posts`.* FROM `posts` WHERE `posts.id` IN (1, 2)
+    # => "SELECT `posts`.* FROM `posts` WHERE `posts.id` IN (1, 2)"
 
     # Rails 3 relation
     Post.where(:id => [1, 2]).to_sql 
-    # => SELECT `posts`.* FROM `posts` WHERE `posts.id` IN (1, 2)
+    # => "SELECT `posts`.* FROM `posts` WHERE `posts.id` IN (1, 2)"
 
 *Implementation note*: Rails 3+ implements `#to_sql`. Edge Rider backports this method to Rails 2 so you can use it
 regardless of your Rails version.
@@ -179,6 +179,24 @@ Edge Rider gives your model classes a method `.preload_associations`. The method
 
 *Implementation note*: Rails 2.3 and Rails 3.0 already has a method [`.preload_associations`](http://apidock.com/rails/ActiveRecord/AssociationPreload/ClassMethods/preload_associations)
 which Edge Rider merely makes public. Edge Rider ports this method forward to Rails 3.1+.
+
+
+
+### Retrieve the class a relation is based on
+
+Edge Rider gives your relations a method `#origin_class` that returns the class the relation is based on.
+This is useful e.g. to perform unscoped method look-up.
+
+    # Rails 2 scope
+    Post.recent.origin_class
+    # => Post
+
+    # Rails 3 relation
+    Post.recent.origin_class
+    # => Post
+
+Note that `#origin_class` it roughly equivalent to the blockless form of [`unscoped`](http://apidock.com/rails/ActiveRecord/Scoping/Default/ClassMethods/unscoped) from Rails 3.2+,
+but it works consistently across all Rails versions.
 
 
 Installation
