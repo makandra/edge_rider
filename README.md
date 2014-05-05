@@ -185,13 +185,8 @@ which Edge Rider merely makes public. Edge Rider ports this method forward to Ra
 ### Retrieve the class a relation is based on
 
 Edge Rider gives your relations a method `#origin_class` that returns the class the relation is based on.
-This is useful e.g. to perform unscoped method look-up.
+This is useful e.g. to perform unscoped record look-up.
 
-    # Rails 2 scope
-    Post.recent.origin_class
-    # => Post
-
-    # Rails 3 relation
     Post.recent.origin_class
     # => Post
 
