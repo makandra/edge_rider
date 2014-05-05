@@ -45,6 +45,41 @@ describe EdgeRider::CollectColumn do
 
     end
 
+    context 'when called on a has many association' do
+
+      it 'should collect the given value' do
+        topic = Topic.create!
+        post = Post.create!(:topic => topic, :id => 1)
+        post = Post.create!(:topic => topic, :id => 2)
+        topic.reload
+        topic.posts.to_a
+        topic.posts.collect_column(:id).should =~ [1,2]
+      end
+
+      it 'should return values when further restricted with an anonymous scope' do
+        topic = Topic.create!
+        post = Post.create!(:topic => topic, :id => 1)
+        post = Post.create!(:topic => topic, :id => 2)
+        topic.reload
+        topic.posts.to_a
+        if topic.posts.respond_to?(:where)
+          topic.posts.where(:id => [1]).collect_ids.should =~ [1]
+        else
+          topic.posts.scoped(:conditions => {:id => [1]}).collect_column(:id).should =~ [1]
+        end
+      end
+
+      it 'should return values when further restricted with a named scope' do
+        topic = Topic.create!
+        post = Post.create!(:topic => topic, :id => 1)
+        post = Post.create!(:topic => topic, :id => 2)
+        topic.reload
+        topic.posts.to_a
+        topic.posts.these([1]).collect_column(:id).should =~ [1]
+      end
+
+    end
+
   end
 
 end
