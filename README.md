@@ -10,11 +10,11 @@ of scalable code with ActiveRecord, you are probably using relations (or scopes)
 
 Edge Rider was created with two intents:
 
-1. Provides a number of utility methods to facilitate hardcore work with relations.
+1. Provide a number of utility methods to facilitate hardcore work with relations.
 2. Provide a stable API for working with relations across multiple versions of Rails (since
 Rails has a tradition of breaking details of its relation API every other release).
 
-It has been tested with Rails 2.3, 3.0 and 3.2.
+It is tested with Rails 2.3, 3.0, 3.2 and 4.1, and on Ruby 1.8.7, 1.9.3 and 2.1.0.
 
 
 Usage
@@ -192,6 +192,19 @@ This is useful e.g. to perform unscoped record look-up.
 
 Note that `#origin_class` it roughly equivalent to the blockless form of [`unscoped`](http://apidock.com/rails/ActiveRecord/Scoping/Default/ClassMethods/unscoped) from Rails 3.2+,
 but it works consistently across all Rails versions.
+
+
+### Turn a model into a scope or narrow down an existing scope
+
+Edge Rider ports `Model.scoped` forward to Rails 4+ (taken from [activerecord-deprecated_finders](https://github.com/rails/activerecord-deprecated_finders/blob/master/lib/active_record/deprecated_finders/base.rb#L61)). This enables you to consistently turn models into scopes or narrow down scopes across all versions of Rails.
+
+    User.scoped # same as User.all in Rails 4
+    User.active.scoped(conditions: { admin: true })
+
+*Implementation note*: Rails 2 and 3 already have a method [`.scoped`](http://apidock.com/rails/ActiveRecord/Scoping/Named/ClassMethods/scoped)
+which Edge Rider does not touch. Rails 4 has removed this method and splits its functionality into the query methods known from Rails 3 (`.where`, `.order` etc.) and an `.all` method that just returns a scope.
+
+Note that associations and scopes also have a `.scoped` method that behaves slightly different in all versions of Rails (see [`scoped_spec.rb`](/makandra/edge_rider/blob/master/spec/shared/spec/edge_rider/scoped_spec.rb#L49)). These methods are not modified.
 
 
 Installation

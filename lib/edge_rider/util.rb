@@ -27,6 +27,31 @@ module EdgeRider
     def scope?(object)
       object.respond_to?(:scoped)
     end
+    
+    def define_scope(klass, name, lambda)
+      if Rails.version.to_i < 4 # Rails 2/3
+        scope_definition = Rails.version.to_i < 3 ? :named_scope : :scope
+        klass.send scope_definition, name, lambda
+      else
+        klass.send :scope, name, lambda { |*args|
+          options = lambda.call(*args)
+          klass.scoped(options.slice :conditions)
+        }
+      end      
+    end
+    
+    def define_association(owner, association, target, options)
+      if Rails.version.to_i < 4
+        owner.send association, target, options
+      else
+        # Reduce the options hash to the given keys and store the remainder in
+        # other_options. Using Hash#extract! would be easier to unterstand,
+        # but Rails 2 does not have it.
+        other_options = options.slice!(:conditions)
+        scope = lambda { |*args| scoped(options) }
+        owner.send association, target, scope, other_options
+      end
+    end
 
     def activerecord2?
       ActiveRecord::VERSION::MAJOR < 3

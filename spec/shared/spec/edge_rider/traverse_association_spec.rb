@@ -14,7 +14,7 @@ describe EdgeRider::TraverseAssociation do
       topic_4 = Topic.create!(:forum => forum_3)
       scope = Topic.scoped(:conditions => { :id => [ topic_2.id, topic_4.id ] })
       traversed_scope = scope.traverse_association(:forum)
-      EdgeRider::Util.scope?(traversed_scope).should be_true
+      EdgeRider::Util.scope?(traversed_scope).should == true
       traversed_scope.to_a.should =~ [forum_1, forum_3]
     end
 
@@ -40,7 +40,7 @@ describe EdgeRider::TraverseAssociation do
       post_3 = Post.create!(:topic => topic_3)
       scope = Post.scoped(:conditions => { :id => [post_1.id, post_3.id] })
       traversed_scope = scope.traverse_association(:topic, :forum)
-      EdgeRider::Util.scope?(traversed_scope).should be_true
+      EdgeRider::Util.scope?(traversed_scope).should == true
       traversed_scope.to_a.should =~ [forum_1, forum_3]
     end
 
@@ -57,10 +57,11 @@ describe EdgeRider::TraverseAssociation do
       post_3b = Post.create!(:topic => topic_3)
       scope = Forum.scoped(:conditions => { :id => [forum_1.id, forum_3.id] })
       traversed_scope = scope.traverse_association(:topics, :posts)
-      EdgeRider::Util.scope?(traversed_scope).should be_true
+      EdgeRider::Util.scope?(traversed_scope).should == true
       traversed_scope.to_a.should =~ [post_1, post_3a, post_3b]
     end
 
+    # in Rails 4, conditions on a scope are expressed as a lambda parameter
     it 'should raise an error when traversing a has_many association with conditions, until this is implemented' do
       forum = Forum.create!
       topic = Topic.create(:forum => forum, :trashed => true)
@@ -84,7 +85,7 @@ describe EdgeRider::TraverseAssociation do
       post_3b = Post.create!(:topic => topic_3)
       scope = Forum.scoped(:conditions => { :id => [forum_1.id, forum_3.id] })
       traversed_scope = scope.traverse_association(:posts)
-      EdgeRider::Util.scope?(traversed_scope).should be_true
+      EdgeRider::Util.scope?(traversed_scope).should == true
       traversed_scope.to_a.should =~ [post_1, post_3a, post_3b]
     end
 
@@ -97,7 +98,7 @@ describe EdgeRider::TraverseAssociation do
       profile_3 = Profile.create!(:user => user_3)
       scope = User.scoped(:conditions => { :id => [user_2.id, user_3.id] })
       traversed_scope = scope.traverse_association(:profile)
-      EdgeRider::Util.scope?(traversed_scope).should be_true
+      EdgeRider::Util.scope?(traversed_scope).should == true
       traversed_scope.to_a.should =~ [profile_2, profile_3]
     end
 
@@ -124,7 +125,7 @@ describe EdgeRider::TraverseAssociation do
       post_3b = Post.create!(:topic => topic_3)
       scope = Post.scoped(:conditions => { :id => [post_3a.id] })
       traversed_scope = scope.traverse_association(:topic, :forum, :topics, :posts)
-      EdgeRider::Util.scope?(traversed_scope).should be_true
+      EdgeRider::Util.scope?(traversed_scope).should == true
       traversed_scope.to_a.should =~ [post_3a, post_3b]
     end
 

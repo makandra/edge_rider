@@ -2,10 +2,16 @@ module EdgeRider
   module PreloadAssociations
 
     def preload_associations(*args)
-      ActiveRecord::Associations::Preloader.new(*args).run
+      preloader = ActiveRecord::Associations::Preloader
+
+      if preloader.method_defined?(:preload) # Rails 4
+        preloader.new.preload(*args)
+      else
+        preloader.new(*args).run
+      end
     end
 
-    if ActiveRecord::Base.respond_to?(:preload_associations, true) # Rails 2.3, Rails 3.0
+    if ActiveRecord::Base.respond_to?(:preload_associations, true) # Rails 2/3.0
       ActiveRecord::Base.class_eval do
         class << self
           public :preload_associations
