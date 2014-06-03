@@ -1,11 +1,11 @@
 PATH
   remote: ../..
   specs:
-    edge_rider (0.2.4)
+    edge_rider (0.2.5)
       activerecord
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     abstract (1.0.0)
     actionmailer (3.0.20)
