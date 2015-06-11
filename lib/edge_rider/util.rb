@@ -29,8 +29,8 @@ module EdgeRider
     end
     
     def define_scope(klass, name, lambda)
-      if Rails.version.to_i < 4 # Rails 2/3
-        scope_definition = Rails.version.to_i < 3 ? :named_scope : :scope
+      if ActiveRecord::VERSION::MAJOR < 4 # Rails 2/3
+        scope_definition = ActiveRecord::VERSION::MAJOR < 3 ? :named_scope : :scope
         klass.send scope_definition, name, lambda
       else
         klass.send :scope, name, lambda { |*args|

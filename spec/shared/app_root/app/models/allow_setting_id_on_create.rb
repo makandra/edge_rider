@@ -11,7 +11,7 @@ module AllowSettingIdOnCreate
   end
 
   def self.included(base)
-    if Rails.version < '3' # Rails 2 has this as an instance method
+    if ActiveRecord::VERSION::MAJOR < 3 # Rails 2 has this as an instance method
       base.send(:include, RemoveIdFromProtectedAttributes)
     else # Rails 3 has this as a class method
       base.send(:extend, RemoveIdFromProtectedAttributes)

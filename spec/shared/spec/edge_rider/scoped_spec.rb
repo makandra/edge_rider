@@ -46,7 +46,7 @@ describe EdgeRider::Scoped do
       has_many_scope = forum.active_topics
       # In Rails 3, #scoped on associations does not take parameters but turns
       # an association into a real scope.
-      has_many_scope = has_many_scope.scoped if Rails.version.to_i == 3
+      has_many_scope = has_many_scope.scoped if ActiveRecord::VERSION::MAJOR == 3
       has_many_scope.scoped(:conditions => { :subject => 'Thema' }).should =~ [ thema ]
     end
     

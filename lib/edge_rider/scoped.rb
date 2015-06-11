@@ -22,7 +22,7 @@ module EdgeRider
       relation
     end
 
-    if Rails.version.to_i >= 4
+    if ActiveRecord::VERSION::MAJOR >= 4
       ActiveRecord::Base.extend(self)
     end
 
