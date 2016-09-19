@@ -1,17 +1,37 @@
 language: ruby
+
 rvm:
-  - "1.8.7"
-  - "1.9.3"
-  - "2.1.0"
-  - ree
+  - '1.8.7'
+  - '2.1.8'
+  - '2.2.4'
+  - '2.3.1'
+
+gemfile:
+  - 'gemfiles/Gemfile.2.3.mysql2'
+  - 'gemfiles/Gemfile.3.2.mysql2'
+  - 'gemfiles/Gemfile.4.2.mysql2'
+
+matrix:
+  exclude:
+    - gemfile: 'gemfiles/Gemfile.4.2.mysql2'
+      rvm: '1.8.7'
+    - gemfile: 'gemfiles/Gemfile.2.3.mysql2'
+      rvm: '2.1.8'
+    - gemfile: 'gemfiles/Gemfile.2.3.mysql2'
+      rvm: '2.2.4'
+    - gemfile: 'gemfiles/Gemfile.2.3.mysql2'
+      rvm: '2.3.1'
+
 services:
   - mysql
-before_script: rake travis_ci:prepare
-script: rake all:bundle all:spec
+
+before_script:
+  - psql -c 'create database edge_rider_test;' -U postgres
+  - mysql -e 'create database IF NOT EXISTS edge_rider_test;'
+
+script: bundle exec rake gemika:spec
+
 notifications:
   email:
     - fail@makandra.de
-branches:
-  only:
-    - master
-    - travis-testing
+

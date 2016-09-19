@@ -1,0 +1,10 @@
+mysql:
+  database: edge_rider_test
+  host: localhost
+  username: root
+  password: junior
+
+postgresql:
+  database: edge_rider_test
+  user:
+  password:

@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+require 'active_record'
+
 require 'edge_rider/version'
 require 'edge_rider/util'
 

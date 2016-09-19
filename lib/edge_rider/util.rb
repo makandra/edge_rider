@@ -41,7 +41,7 @@ module EdgeRider
     end
     
     def define_association(owner, association, target, options)
-      if Rails.version.to_i < 4
+      if active_record_version < 4
         owner.send association, target, options
       else
         # Reduce the options hash to the given keys and store the remainder in
@@ -53,8 +53,37 @@ module EdgeRider
       end
     end
 
+    def active_record_version
+      ActiveRecord::VERSION::MAJOR
+    end
+
     def activerecord2?
-      ActiveRecord::VERSION::MAJOR < 3
+      active_record_version < 3
+    end
+
+    def rspec_version
+      if defined?(Spec)
+        1
+      else
+        require 'rspec/version'
+        RSpec::Version::STRING.to_i
+      end
+    end
+
+    def rspec_root
+      if rspec_version == 1
+        Spec
+      else
+        RSpec
+      end
+    end
+
+    def rspec_path
+      if rspec_version == 1
+        'spec'
+      else
+        'rspec'
+      end
     end
 
   end
