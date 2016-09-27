@@ -6,7 +6,13 @@ module EdgeRider
       qualified_column_name = EdgeRider::Util.qualify_column_name(self, column_name)
       if respond_to?(:pluck) # Rails 3.2+
         scope = scoped({})
-        scope = scope.uniq if distinct
+        if distinct
+          if ActiveRecord::VERSION::MAJOR < 5
+            scope = scope.uniq
+          else
+            scope = scope.distinct
+          end
+        end
         scope.pluck(qualified_column_name)
       else # Rails 2
         select = distinct ? "DISTINCT #{qualified_column_name}" : qualified_column_name
