@@ -14,8 +14,6 @@ Edge Rider was created with two intents:
 2. Provide a stable API for working with relations across multiple versions of Rails (since
 Rails has a tradition of breaking details of its relation API every other release).
 
-It is tested with Rails 2.3, 3.0, 3.2 and 4.1, and on Ruby 1.8.7, 1.9.3 and 2.1.0.
-
 
 Usage
 -----
