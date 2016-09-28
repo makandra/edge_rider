@@ -5,9 +5,10 @@ gem 'activerecord', '~>4.2.0'
 gem 'pg'
 
 # Development dependencies
-gem 'has_defaults' # used by test models
-gem 'rspec'
+gem 'rake'
 gem 'database_cleaner'
+gem 'rspec'
+gem 'has_defaults' # used by test models
 gem 'gemika'
 
 # Gem under test

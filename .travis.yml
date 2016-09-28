@@ -39,6 +39,8 @@ services:
   - mysql
 
 install:
+  # Shave yaks
+  - gem uninstall bundler -I -x --force
   # Old Travis CI bundler explodes when lockfile version doesn't match recently bumped version
   - gem install bundler --version='=1.12.5'
   # This is the default Travis CI install step
