@@ -22,7 +22,7 @@ GEM
     builder (3.0.4)
     database_cleaner (1.0.1)
     diff-lcs (1.2.5)
-    gemika (0.2.0)
+    gemika (0.3.0)
     has_defaults (0.4.4)
       activerecord
     i18n (0.6.11)

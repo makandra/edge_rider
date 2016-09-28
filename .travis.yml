@@ -48,7 +48,7 @@ before_script:
   - psql -c 'create database edge_rider_test;' -U postgres
   - mysql -e 'create database IF NOT EXISTS edge_rider_test;'
 
-script: bundle exec rake gemika:spec
+script: bundle exec rake current_rspec
 
 notifications:
   email:

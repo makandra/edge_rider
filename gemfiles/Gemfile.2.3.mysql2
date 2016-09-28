@@ -1,8 +1,5 @@
 source 'https://rubygems.org'
 
-# Deprecate.skip = true if defined?(Deprecate.skip)
-# Gem::Deprecate.skip = true if defined?(Gem::Deprecate.skip)
-
 # Runtime dependencies
 gem 'activerecord', '=2.3.18'
 gem 'mysql2', '= 0.2.20'
