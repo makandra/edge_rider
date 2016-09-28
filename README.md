@@ -226,18 +226,19 @@ Now run `bundle install` and restart your server.
 Development
 -----------
 
-- Test applications for various Rails versions lives in `spec`.
-- You need to create a MySQL database and put credentials into `spec/shared/app_root/config/database.yml`.
-- You can bundle all test applications by saying `bundle exec rake all:bundle`
-- You can run specs from the project root by saying `bundle exec rake all:spec`.
+- There are tests in `spec`. We only accept PRs with tests.
+- We currently develop using Ruby 2.2.4 (see `.ruby-version`) since that version works for all versions of ActiveRecord that we support. Travis CI will test additional Ruby versions (2.1.8 and 2.3.1).
+- Put your database credentials into `spec/support/database.yml`. There's a `database.sample.yml` you can use as a template.
+- Create a database `edge_rider_test` in both MySQL and PostgreSQL.
+- There are gem bundles in `gemfiles` for each combination of ActiveRecord version and database type that we support.
+- You can bundle all test applications by saying `bundle exec rake matrix:install`
+- You can run specs from the project root by saying `bundle exec rake matrix:spec`. This will run all gemfiles compatible with your current Ruby.
 
 If you would like to contribute:
 
 - Fork the repository.
 - Push your changes **with passing specs**.
 - Send me a pull request.
-
-I'm very eager to keep this gem leightweight and on topic. If you're unsure whether a change would make it into the gem, [talk to me beforehand](mailto:henning.koch@makandra.de).
 
 
 Credits
