@@ -41,6 +41,7 @@ describe EdgeRider::Scoped do
     it 'can be used to add conditions to a has_many association' do
       forum = Forum.create!
       thema = Topic.create! :subject => 'Thema', :trashed => false, :forum => forum
+      other_topic = Topic.create! :subject => 'Other', :trashed => false, :forum => forum
       trashed_thema = Topic.create! :subject => 'Thema', :trashed => true, :forum => forum
       
       has_many_scope = forum.active_topics
