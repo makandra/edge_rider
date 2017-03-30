@@ -59,7 +59,7 @@ fetch all IDs in a single query without instantiating a single ActiveRecord obje
     posts = Post.where(:archived => false)
     post_ids = posts.collect_ids
 
-*Implemenation note:* In Rails 3.2+, `#collect_ids` delegates to [`#pluck`](http://apidock.com/rails/ActiveRecord/Calculations/pluck),
+*Implementation note:* In Rails 3.2+, `#collect_ids` delegates to [`#pluck`](http://apidock.com/rails/ActiveRecord/Calculations/pluck),
 which can be used for the same purpose.
 
 
