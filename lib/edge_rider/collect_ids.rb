@@ -8,7 +8,7 @@ module EdgeRider
       def collect_ids
         collect do |obj|
           case obj
-            when Fixnum then obj
+            when Integer then obj
             when ActiveRecord::Base then obj.id
             else raise Uncollectable, "Cannot collect an id from #{obj.inspect}"
           end
@@ -41,7 +41,7 @@ module EdgeRider
     ::ActiveRecord::Associations::HasManyAssociation.send(:include, ActiveRecordScope)
     ::ActiveRecord::Associations::HasManyThroughAssociation.send(:include, ActiveRecordScope)
 
-    module Fixnum
+    module Integer
 
       def collect_ids
         [self]
@@ -49,7 +49,7 @@ module EdgeRider
 
     end
 
-    ::Fixnum.send(:include, Fixnum)
+    ::Integer.send(:include, Integer)
 
   end
 end

@@ -26,7 +26,7 @@ describe EdgeRider::CollectIds do
 
     end
 
-    context 'when called on a Fixnum' do
+    context 'when called on an Integer' do
 
       it 'should return the number as an array with a single element' do
         5.collect_ids.should == [5]
@@ -42,7 +42,7 @@ describe EdgeRider::CollectIds do
 
     end
 
-    context 'when called on an array of Fixnums' do
+    context 'when called on an array of Integers' do
 
       it 'should return the list itself' do
         [1, 3].collect_ids.should == [1, 3]
