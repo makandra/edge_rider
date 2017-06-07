@@ -76,7 +76,7 @@ any kind of argument that can be turned into a list of IDs:
 
 For this use case Edge Rider defines `#collect_ids` on many different types:
 
-    Post.where(:id => [1, 2]).collect_ids    # => [1, 2, 3]
+    Post.where(:id => [1, 2]).collect_ids    # => [1, 2]
     [Post.find(1), Post.find(2)].collect_ids # => [1, 2]
     Post.find(1).collect_ids                 # => [1]
     [1, 2, 3].collect_ids                    # => [1, 2, 3]
