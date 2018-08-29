@@ -7,9 +7,15 @@ module EdgeRider
     def qualify_column_name(model, column_name)
       column_name = column_name.to_s
       unless column_name.include?('.')
-        quoted_table_name = model.connection.quote_table_name(model.table_name)
-        quoted_column_name = model.connection.quote_column_name(column_name)
-        column_name = "#{quoted_table_name}.#{quoted_column_name}"
+        column_name = if ActiveRecord::VERSION::MAJOR < 4
+          quoted_table_name = model.connection.quote_table_name(model.table_name)
+          quoted_column_name = model.connection.quote_column_name(column_name)
+          "#{quoted_table_name}.#{quoted_column_name}"
+        else
+          # Rails 4+ will quote correctly and Rails 5.2 will print
+          # deprecation warnings if there are surplus quotes
+          "#{model.table_name}.#{column_name}"
+        end
       end
       column_name
     end
