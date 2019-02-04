@@ -1,5 +1,5 @@
 PATH
-  remote: ..
+  remote: .
   specs:
     edge_rider (0.3.2)
       activerecord
