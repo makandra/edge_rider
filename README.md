@@ -230,7 +230,7 @@ Development
 - We currently develop using Ruby 2.2.4 (see `.ruby-version`) since that version works for all versions of ActiveRecord that we support. Travis CI will test additional Ruby versions (2.1.8 and 2.3.1).
 - Put your database credentials into `spec/support/database.yml`. There's a `database.sample.yml` you can use as a template.
 - Create a database `edge_rider_test` in both MySQL and PostgreSQL.
-- There are gem bundles in `gemfiles` for each combination of ActiveRecord version and database type that we support.
+- There are gem bundles in the project root for each combination of ActiveRecord version and database type that we support.
 - You can bundle all test applications by saying `bundle exec rake matrix:install`
 - You can run specs from the project root by saying `bundle exec rake matrix:spec`. This will run all gemfiles compatible with your current Ruby.
 
