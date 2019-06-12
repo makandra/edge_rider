@@ -21,13 +21,7 @@ module EdgeRider
     end
 
     def exclusive_query(model, conditions)
-      if activerecord2?
-        model.send(:with_exclusive_scope) do
-          model.scoped(:conditions => conditions)
-        end
-      else
-        model.unscoped.where(conditions)
-      end
+      model.unscoped.where(conditions)
     end
 
     def scope?(object)
@@ -35,13 +29,16 @@ module EdgeRider
     end
     
     def define_scope(klass, name, lambda)
-      if ActiveRecord::VERSION::MAJOR < 4 # Rails 2/3
-        scope_definition = ActiveRecord::VERSION::MAJOR < 3 ? :named_scope : :scope
-        klass.send scope_definition, name, lambda
+      if ActiveRecord::VERSION::MAJOR == 3
+        klass.send :scope, name, lambda
       else
         klass.send :scope, name, lambda { |*args|
           options = lambda.call(*args)
-          klass.scoped(options.slice :conditions)
+          if ActiveRecord::VERSION::MAJOR < 6
+            klass.scoped(options.slice :conditions)
+          else
+            scoped(options.slice :conditions)
+          end
         }
       end      
     end
@@ -61,10 +58,6 @@ module EdgeRider
 
     def active_record_version
       ActiveRecord::VERSION::MAJOR
-    end
-
-    def activerecord2?
-      active_record_version < 3
     end
 
     def rspec_version

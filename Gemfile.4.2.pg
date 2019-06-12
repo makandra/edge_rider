@@ -12,4 +12,4 @@ gem 'has_defaults' # used by test models
 gem 'gemika'
 
 # Gem under test
-gem 'edge_rider', :path => '.'
+gem 'edge_rider', path: '.'

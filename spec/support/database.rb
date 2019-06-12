@@ -17,7 +17,7 @@ Gemika::Database.new.rewrite_schema! do
     t.references :topic
     t.references :author
     t.boolean :trashed
-    t.timestamps
+    t.timestamps null: true
   end
 
   create_table :users do |t|

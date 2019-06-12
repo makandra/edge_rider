@@ -12,4 +12,4 @@ gem 'rspec'
 gem 'gemika'
 
 # Gem under test
-gem 'edge_rider', :path => '.'
+gem 'edge_rider', path: '.'

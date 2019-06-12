@@ -3,7 +3,7 @@ module EdgeRider
     
     VALID_FIND_OPTIONS = [ :conditions, :include, :joins, :limit, :offset,
                            :order, :select, :readonly, :group, :having, :from, :lock ]
-    
+
     def scoped(options = nil)
       options ||= {}
       relation = all

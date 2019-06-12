@@ -1,8 +1,9 @@
 source 'https://rubygems.org'
 
 # Runtime dependencies
-gem 'activerecord', '~>5.1.1'
+gem 'activerecord', '~>5.2.3'
 gem 'mysql2'
+gem 'i18n', '<=1.5.1' # Required to support tests for Ruby 2.2.x
 
 # Development dependencies
 gem 'rake'
@@ -12,4 +13,4 @@ gem 'has_defaults' # used by test models
 gem 'gemika'
 
 # Gem under test
-gem 'edge_rider', :path => '.'
+gem 'edge_rider', path: '.'

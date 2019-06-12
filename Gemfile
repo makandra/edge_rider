@@ -1,1 +1,1 @@
-Gemfile.4.2.mysql2
+Gemfile.5.2.pg

@@ -18,8 +18,8 @@ module EdgeRider
         raise NotImplementedError if reflection.options[:conditions] or (reflection.respond_to?(:scope) && reflection.scope)
            
         if reflection.macro == :belongs_to # belongs_to
-          ids = scope.collect_column(foreign_key, :distinct => true)
-          scope = EdgeRider::Util.exclusive_query(reflection.klass, :id => ids)
+          ids = scope.collect_column(foreign_key, distinct: true)
+          scope = EdgeRider::Util.exclusive_query(reflection.klass, id: ids)
         elsif reflection.macro == :has_many || reflection.macro == :has_one
           if reflection.through_reflection # has_many :through
             scope = scope.traverse_association(reflection.through_reflection.name, reflection.source_reflection.name)

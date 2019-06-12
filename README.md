@@ -31,13 +31,13 @@ Say we have a `Post` model and each `Post` belongs to an author:
   
 To turn a relation of posts into a relation of its authors:
 
-    posts = Post.where(:archived => false)
+    posts = Post.where(archived: false)
     authors = posts.traverse_association(:author)
     
 You can traverse multiple associations in a single call.
 E.g. to turn a relation of posts into a relation of all posts of their authors:
 
-    posts = Post.where(:archived => false)
+    posts = Post.where(archived: false)
     posts_by_same_authors = posts.traverse_association(:author, :posts)
 
 *Implementation note:* The traversal is achieved internally by collecting all foreign keys in the current relation
@@ -56,10 +56,10 @@ its ID.
 Edge Rider has a better way. Your relations gain a method `#collect_ids` that will
 fetch all IDs in a single query without instantiating a single ActiveRecord object:
 
-    posts = Post.where(:archived => false)
+    posts = Post.where(archived: false)
     post_ids = posts.collect_ids
 
-*Implementation note:* In Rails 3.2+, `#collect_ids` delegates to [`#pluck`](http://apidock.com/rails/ActiveRecord/Calculations/pluck),
+*Implementation note:* `#collect_ids` delegates to [`#pluck`](https://apidock.com/rails/ActiveRecord/Calculations/pluck),
 which can be used for the same purpose.
 
 
@@ -76,7 +76,7 @@ any kind of argument that can be turned into a list of IDs:
 
 For this use case Edge Rider defines `#collect_ids` on many different types:
 
-    Post.where(:id => [1, 2]).collect_ids    # => [1, 2]
+    Post.where(id: [1, 2]).collect_ids    # => [1, 2]
     [Post.find(1), Post.find(2)].collect_ids # => [1, 2]
     Post.find(1).collect_ids                 # => [1]
     [1, 2, 3].collect_ids                    # => [1, 2, 3]
@@ -89,7 +89,7 @@ You can now write `Post.by_author` from the example above without a single `if` 
       belongs_to :author
 
       def self.for_author(author_or_authors)
-        where(:author_id => author_or_authors.collect_ids)
+        where(author_id: author_or_authors.collect_ids)
       end
 
     end
@@ -106,42 +106,23 @@ its column value.
 Edge Rider has a better way. Your relations gain a method `#collect_column` that will
 fetch all column values in a single query without instantiating a single ActiveRecord object:
 
-    posts = Post.where(:archived => false)
+    posts = Post.where(archived: false)
     subjects = posts.collect_column(:subject)
 
-*Implementation note:* In Rails 3.2+, `#collect_column` delegates to [`#pluck`](http://apidock.com/rails/ActiveRecord/Calculations/pluck),
+*Implementation note:* `#collect_column` delegates to [`#pluck`](https://apidock.com/rails/ActiveRecord/Calculations/pluck),
 which can be used for the same effect.
 
 #### Collect unique values in a relation's column
 
-If you only care about *unique* values, use the `:distinct => true` option:
+If you only care about *unique* values, use the `distinct: true` option:
 
-    posts = Post.where(:archived => false)
-    distinct_subjects = posts.collect_column(:subject, :distinct => true)
+    posts = Post.where(archived: false)
+    distinct_subjects = posts.collect_column(:subject, distinct: true)
 
 With this options duplicates are discarded by the database before making their way into Ruby.
 
-*Implementation note:* In Rails 3.2+, the `:distinct` option is implemented with [`#uniq`](http://apidock.com/rails/ActiveRecord/QueryMethods/uniq)
- which can be used for the same effect.
-
-
-### Retrieve the SQL a relation would produce
-
-Sometimes it is useful to ask a relation which SQL query it would trigger,
-if it was evaluated right now. For this, Edge Rider gives your relations a method
-`#to_sql`:
-
-    # Rails 2 scope
-    Post.scoped(:conditions => { :id => [1, 2] }).to_sql 
-    # => "SELECT `posts`.* FROM `posts` WHERE `posts.id` IN (1, 2)"
-
-    # Rails 3 relation
-    Post.where(:id => [1, 2]).to_sql 
-    # => "SELECT `posts`.* FROM `posts` WHERE `posts.id` IN (1, 2)"
-
-*Implementation note*: Rails 3+ implements `#to_sql`. Edge Rider backports this method to Rails 2 so you can use it
-regardless of your Rails version.
-
+*Implementation note:* The `:distinct` option is implemented with [`#uniq`](https://apidock.com/rails/ActiveRecord/QueryMethods/uniq)
+ or [`#distinct`](https://apidock.com/rails/ActiveRecord/QueryMethods/distinct) which can be used for the same effect.
 
 ### Simplify a complex relation for better chainability
 
@@ -155,7 +136,7 @@ mashes together strings that mostly happen to look like a MySQL query in the end
 
 Edge Rider gives your relations a new method `#to_id_query`:
 
-    Site.joins(:user).where(:users => { :name => 'Bruce' }).to_id_query
+    Site.joins(user).where(:users: { name: 'Bruce' }).to_id_query
 
 `#to_id_query` will immediately run an SQL query where it collects all the IDs that match your relation:
 
@@ -173,9 +154,9 @@ Sometimes you want to fetch associations for records that you already instantiat
 Edge Rider gives your model classes a method `.preload_associations`. The method can be used to preload associations for loaded objects like this:
 
     @user = User.find(params[:id])
-    User.preload_associations [@user], { :threads => { :posts => :author }, :messages => :sender }
+    User.preload_associations [@user], { threads: { posts: :author }, messages: :sender }
 
-*Implementation note*: Rails 2.3 and Rails 3.0 already has a method [`.preload_associations`](http://apidock.com/rails/ActiveRecord/AssociationPreload/ClassMethods/preload_associations)
+*Implementation note*: Rails 3.0 already has a method [`.preload_associations`](https://apidock.com/rails/ActiveRecord/AssociationPreload/ClassMethods/preload_associations)
 which Edge Rider merely makes public. Edge Rider ports this method forward to Rails 3.1+.
 
 
@@ -188,7 +169,7 @@ This is useful e.g. to perform unscoped record look-up.
     Post.recent.origin_class
     # => Post
 
-Note that `#origin_class` it roughly equivalent to the blockless form of [`unscoped`](http://apidock.com/rails/ActiveRecord/Scoping/Default/ClassMethods/unscoped) from Rails 3.2+,
+Note that `#origin_class` it roughly equivalent to the blockless form of [`unscoped`](https://apidock.com/rails/ActiveRecord/Scoping/Default/ClassMethods/unscoped) from Rails 3.2+,
 but it works consistently across all Rails versions.
 
 
@@ -202,8 +183,8 @@ across all versions of Rails.
     User.scoped # just calls User.all in Rails 4
     User.active.scoped(conditions: { admin: true })
 
-*Implementation note*: Rails 2 and 3 already have a method
-[`.scoped`](http://apidock.com/rails/ActiveRecord/Scoping/Named/ClassMethods/scoped) which Edge Rider does not touch. Rails 4 has removed this method and
+*Implementation note*: Rails 3 already have a method
+[`.scoped`](https://apidock.com/rails/ActiveRecord/Scoping/Named/ClassMethods/scoped) which Edge Rider does not touch. Rails 4 has removed this method and
 splits its functionality into the query methods known from Rails 3 (`.where`,
 `.order` etc.) and an `.all` method that just returns a scope.
 
@@ -227,7 +208,7 @@ Development
 -----------
 
 - There are tests in `spec`. We only accept PRs with tests.
-- We currently develop using Ruby 2.2.4 (see `.ruby-version`) since that version works for all versions of ActiveRecord that we support. Travis CI will test additional Ruby versions (2.1.8 and 2.3.1).
+- We currently develop using the Ruby version in `.ruby-version`. It is required to change the Ruby Version to cover all Rails version or just use Travis CI.
 - Put your database credentials into `spec/support/database.yml`. There's a `database.sample.yml` you can use as a template.
 - Create a database `edge_rider_test` in both MySQL and PostgreSQL.
 - There are gem bundles in the project root for each combination of ActiveRecord version and database type that we support.
@@ -245,5 +226,3 @@ Credits
 -------
 
 Henning Koch from [makandra](http://makandra.com/)
-
-
