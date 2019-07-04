@@ -59,7 +59,3 @@ before_script:
   - mysql -e 'create database IF NOT EXISTS edge_rider_test;'
 
 script: bundle exec rake current_rspec
-
-notifications:
-  email:
-    - fail@makandra.de
