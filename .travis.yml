@@ -14,6 +14,8 @@ gemfile:
   - 'Gemfile.5.2.pg'
   - 'Gemfile.6.0.pg'
 
+dist: trusty
+
 matrix:
   exclude:
     # Rails 3.2
