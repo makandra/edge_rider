@@ -1,47 +1,37 @@
 language: ruby
 
-rvm:
-  - '2.2.4'
-  - '2.3.1'
-  - '2.4.1'
-  - '2.5.3'
-
-gemfile:
-  - 'Gemfile.3.2.mysql2'
-  - 'Gemfile.4.2.mysql2'
-  - 'Gemfile.4.2.pg'
-  - 'Gemfile.5.2.mysql2'
-  - 'Gemfile.5.2.pg'
-  - 'Gemfile.6.0.pg'
-
 dist: trusty
 
 matrix:
-  exclude:
-    # Rails 3.2
-    - gemfile: 'Gemfile.3.2.mysql2'
-      rvm: '2.3.1'
-    - gemfile: 'Gemfile.3.2.mysql2'
-      rvm: '2.4.1'
-    - gemfile: 'Gemfile.3.2.mysql2'
-      rvm: '2.5.3'
-    # Rails 4.2
-    - gemfile: 'Gemfile.4.2.mysql2'
-      rvm: '2.4.1'
-    - gemfile: 'Gemfile.4.2.pg'
-      rvm: '2.4.1'
-    - gemfile: 'Gemfile.4.2.mysql2'
-      rvm: '2.5.3'
-    - gemfile: 'Gemfile.4.2.pg'
-      rvm: '2.5.3'
-    # Rails 5.2
-    # Rails 6
-    - gemfile: 'Gemfile.6.0.pg'
-      rvm: '2.2.4'
-    - gemfile: 'Gemfile.6.0.pg'
-      rvm: '2.3.1'
-    - gemfile: 'Gemfile.6.0.pg'
-      rvm: '2.4.1'
+  include:
+    - rvm: 2.2.4
+      gemfile: Gemfile.3.2.mysql2
+    - rvm: 2.2.4
+      gemfile: Gemfile.4.2.mysql2
+    - rvm: 2.3.1
+      gemfile: Gemfile.4.2.mysql2
+    - rvm: 2.2.4
+      gemfile: Gemfile.4.2.pg
+    - rvm: 2.3.1
+      gemfile: Gemfile.4.2.pg
+    - rvm: 2.2.4
+      gemfile: Gemfile.5.2.mysql2
+    - rvm: 2.3.1
+      gemfile: Gemfile.5.2.mysql2
+    - rvm: 2.4.1
+      gemfile: Gemfile.5.2.mysql2
+    - rvm: 2.5.3
+      gemfile: Gemfile.5.2.mysql2
+    - rvm: 2.2.4
+      gemfile: Gemfile.5.2.pg
+    - rvm: 2.3.1
+      gemfile: Gemfile.5.2.pg
+    - rvm: 2.4.1
+      gemfile: Gemfile.5.2.pg
+    - rvm: 2.5.3
+      gemfile: Gemfile.5.2.pg
+    - rvm: 2.5.3
+      gemfile: Gemfile.6.0.pg
 
 services:
   - mysql

@@ -22,7 +22,7 @@ GEM
     builder (3.0.4)
     database_cleaner (1.0.1)
     diff-lcs (1.2.5)
-    gemika (0.3.2)
+    gemika (0.4.0)
     has_defaults (0.4.4)
       activerecord
     i18n (0.6.11)
@@ -51,7 +51,7 @@ DEPENDENCIES
   activerecord (= 3.2.22)
   database_cleaner
   edge_rider!
-  gemika (>= 0.2.0)
+  gemika
   has_defaults
   i18n (= 0.6.11)
   mysql2 (= 0.3.17)

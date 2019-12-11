@@ -10,7 +10,7 @@ gem 'rake', '=10.0.4'
 gem 'database_cleaner'
 gem 'rspec', '~> 3.4'
 gem 'has_defaults' # used by test models
-gem 'gemika', '>= 0.2.0'
+gem 'gemika'
 
 # Gem under test
 gem 'edge_rider', path: '.'
