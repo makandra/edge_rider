@@ -9,7 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 -
 
 ### Compatible changes
--
+- Add `preload_association` at instance level. Example: `user.preload_associations(:posts)`
 
 ## 1.0.0
 

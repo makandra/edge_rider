@@ -1,5 +1,10 @@
 module EdgeRider
   module PreloadAssociations
+    module PreloadAssociationsInstanceMethod
+      def preload_associations(*args)
+        self.class.preload_associations([self], *args)
+      end
+    end
 
     def preload_associations(*args)
       preloader = ActiveRecord::Associations::Preloader
@@ -20,6 +25,8 @@ module EdgeRider
     else # Rails 3.2+
       ActiveRecord::Base.send(:extend, self)
     end
+
+    ActiveRecord::Base.send(:include, PreloadAssociationsInstanceMethod)
 
   end
 end
