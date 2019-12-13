@@ -51,6 +51,7 @@ class Profile < ActiveRecord::Base
   include AllowSettingIdOnCreate
 
   belongs_to :user
+  has_one :attachment, as: :record
 
   has_defaults trashed: false
 
@@ -67,6 +68,7 @@ class Topic < ActiveRecord::Base
   has_many :posts
   belongs_to :author, class_name: 'User'
   has_many :post_authors, through: :posts
+  has_many :attachments, as: :record
 
   has_defaults trashed: false
 
@@ -84,5 +86,12 @@ class User < ActiveRecord::Base
     conditions: { trashed: false }, class_name: 'Profile'
 
   has_defaults trashed: false
+
+end
+
+
+class Attachment < ActiveRecord::Base
+
+  belongs_to :record, polymorphic: true
 
 end

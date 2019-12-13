@@ -123,6 +123,53 @@ describe EdgeRider::TraverseAssociation do
       traversed_scope.to_a.should =~ [post_3a, post_3b]
     end
 
+    it 'should traverse to a polymorphic has one association' do
+      profile = Profile.create!
+      profile_attachment = Attachment.create!(record: profile)
+
+      # Sanity check that the condition includes both record id and record type
+      Attachment.create!(record_id: profile_attachment.id, record_type: 'NonExisting')
+
+      scope = Profile.scoped(conditions: { id: [profile.id] })
+      scope.traverse_association(:attachment).to_a.should =~ [profile_attachment]
+    end
+
+    it 'should traverse to a polymorphic has many association' do
+      topic = Topic.create!
+      topic_attachment_1 = Attachment.create!(record: topic)
+      topic_attachment_2 = Attachment.create!(record: topic)
+
+      # Sanity check that the condition includes both record id and record type
+      Attachment.create!(record_id: topic_attachment_1.id, record_type: 'NonExisting')
+
+      scope = Topic.scoped(conditions: { id: [topic_attachment_1.id, topic_attachment_2.id] })
+      scope.traverse_association(:attachments).to_a.should =~ [topic_attachment_1, topic_attachment_2]
+    end
+
+    it 'should raise an error if you want to traverse from a polymorphic association' do
+      profile = Profile.create!
+      profile_attachment = Attachment.create!(record: profile)
+
+      scope = Attachment.scoped(conditions: { id: [profile_attachment.id] })
+
+      if [4, 3].include?(EdgeRider::Util.active_record_version)
+        expect { scope.traverse_association(:record) }.to raise_error(
+          NameError,
+          'uninitialized constant Attachment::Record'
+        )
+      elsif EdgeRider::Util.active_record_version == 5
+        expect { scope.traverse_association(:record) }.to raise_error(
+          ArgumentError,
+          'Polymorphic association does not support to compute class.'
+        )
+      else
+        expect { scope.traverse_association(:record) }.to raise_error(
+          ArgumentError,
+          'Polymorphic associations do not support computing the class.'
+        )
+      end
+    end
+
   end
 
 end

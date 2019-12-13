@@ -31,4 +31,9 @@ Gemika::Database.new.rewrite_schema! do
     t.boolean :trashed
   end
 
+  create_table :attachments do |t|
+    t.string :record_type
+    t.integer :record_id
+  end
+
 end

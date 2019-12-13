@@ -8,7 +8,7 @@ module EdgeRider
 
       scope = scoped({})
 
-      associations.each_with_index do |association, index|
+      associations.each do |association|
 
         reflection = scope.reflect_on_association(association) or raise UnknownAssociation, "Could not find association: #{self.name}##{association}"
         foreign_key = reflection.respond_to?(:foreign_key) ? reflection.foreign_key : reflection.primary_key_name
@@ -24,8 +24,12 @@ module EdgeRider
           if reflection.through_reflection # has_many :through
             scope = scope.traverse_association(reflection.through_reflection.name, reflection.source_reflection.name)
           else # has_many or has_one
-            ids = scope.collect_ids
-            scope = EdgeRider::Util.exclusive_query(reflection.klass, foreign_key => ids)
+            conditions = {}
+            # A polymorphic association has a type attribute, e.g. record_type, that needs to be added to condition.
+            conditions[reflection.type] = self.name if reflection.type.present?
+            conditions[foreign_key] = scope.collect_ids
+
+            scope = EdgeRider::Util.exclusive_query(reflection.klass, conditions)
           end
         else
           raise UnsupportedAssociation, "Unsupport association type: #{reflection.macro}"
