@@ -11,6 +11,7 @@ gem 'database_cleaner'
 gem 'has_defaults' # used by test models
 gem 'rspec'
 gem 'gemika'
+gem 'pry-byebug'
 
 # Gem under test
 gem 'edge_rider', path: '.'
