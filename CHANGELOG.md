@@ -20,7 +20,7 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 ## 1.0.0
 
 ### Breaking changes
-- Remove support for Ruby 1.8.7
+- Remove support for Ruby 2.2
 - Remove support for Rails 2.3
 
 ### Compatible changes
