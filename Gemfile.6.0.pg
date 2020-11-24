@@ -9,7 +9,7 @@ gem 'rake'
 gem 'database_cleaner'
 gem 'has_defaults' # used by test models
 gem 'rspec'
-gem 'gemika'
+gem 'gemika', '>=0.5.0'
 gem 'pry-byebug'
 
 # Gem under test
