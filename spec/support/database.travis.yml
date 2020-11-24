@@ -1,9 +1,0 @@
-mysql:
-  database: edge_rider_test
-  username: travis
-  password:
-
-postgresql:
-  database: edge_rider_test
-  user: postgres
-  password:
