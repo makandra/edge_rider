@@ -23,14 +23,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - ruby: 2.2.10
-          gemfile: Gemfile.3.2.mysql2
-        - ruby: 2.2.10
-          gemfile: Gemfile.4.2.mysql2
         - ruby: 2.3.1
           gemfile: Gemfile.4.2.mysql2
-        - ruby: 2.2.10
-          gemfile: Gemfile.5.2.mysql2
         - ruby: 2.3.1
           gemfile: Gemfile.5.2.mysql2
         - ruby: 2.4.1
@@ -70,12 +64,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-        - ruby: 2.2.10
-          gemfile: Gemfile.4.2.pg
         - ruby: 2.3.1
           gemfile: Gemfile.4.2.pg
-        - ruby: 2.2.10
-          gemfile: Gemfile.5.2.pg
         - ruby: 2.3.1
           gemfile: Gemfile.5.2.pg
         - ruby: 2.4.1
