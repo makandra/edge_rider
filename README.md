@@ -1,4 +1,4 @@
-Edge Rider [![Build Status](https://secure.travis-ci.org/makandra/edge_rider.png?branch=master)](https://travis-ci.org/makandra/edge_rider)
+Edge Rider [![Tests](https://github.com/makandra/edge_rider/workflows/Tests/badge.svg)](https://github.com/makandra/edge_rider/actions)
 ====================================
 
 Power tools for ActiveRecord relations (scopes)
