@@ -9,7 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 -
 
 ### Compatible changes
--
+- Add support for Rails 6.1
 
 ## 1.1.0
 
