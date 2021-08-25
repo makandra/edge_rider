@@ -52,7 +52,7 @@ module EdgeRider
         # but Rails 2 does not have it.
         other_options = options.slice!(:conditions)
         scope = lambda { |*args| scoped(options) }
-        owner.send association, target, scope, other_options
+        owner.send association, target, scope, **other_options
       end
     end
 

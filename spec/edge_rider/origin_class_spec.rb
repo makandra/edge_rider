@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe EdgeRider::OriginClass do
 
   describe '#origin_class' do

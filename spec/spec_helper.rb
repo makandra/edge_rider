@@ -1,5 +1,3 @@
-$: << File.join(File.dirname(__FILE__), "/../lib" )
-
 require 'edge_rider'
 require 'edge_rider/development'
 require 'database_cleaner'

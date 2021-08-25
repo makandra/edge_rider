@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe EdgeRider::CollectColumn do
 
   describe '#collect_column' do

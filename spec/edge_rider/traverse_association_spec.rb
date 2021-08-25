@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe EdgeRider::TraverseAssociation do
 
   describe '#traverse_association' do

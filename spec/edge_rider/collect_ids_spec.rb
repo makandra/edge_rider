@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe EdgeRider::CollectIds do
 
   describe '#collect_ids' do

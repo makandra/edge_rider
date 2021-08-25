@@ -1,21 +1,29 @@
-$:.push File.expand_path("../lib", __FILE__)
+lib = File.expand_path('lib', __dir__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "edge_rider/version"
 
-Gem::Specification.new do |s|
-  s.name = 'edge_rider'
-  s.version = EdgeRider::VERSION
-  s.authors = ["Henning Koch"]
-  s.email = 'henning.koch@makandra.de'
-  s.homepage = 'https://github.com/makandra/edge_rider'
-  s.summary = 'Power tools for ActiveRecord relations (scopes)'
-  s.description = s.summary
-  s.license = 'MIT'
+Gem::Specification.new do |spec|
+  spec.name = 'edge_rider'
+  spec.version = EdgeRider::VERSION
+  spec.required_ruby_version = '>= 2.3.0'
+  spec.authors = ['Henning Koch']
+  spec.email = ['henning.koch@makandra.de']
 
-  s.files         = `git ls-files`.split("\n").select { |path| File.exist?(path) && !File.symlink?(path) }
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n").select { |path| File.exist?(path) && !File.symlink?(path) }
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
-  s.require_paths = ["lib"]
+  spec.summary = 'Power tools for ActiveRecord relations (scopes)'
+  spec.description = spec.summary
+  spec.homepage = 'https://github.com/makandra/edge_rider'
+  spec.license = 'MIT'
 
-  s.add_dependency('activerecord', '>=3.2')
-  s.required_ruby_version = ">= 2.3"
+  # Specify which files should be added to the gem when it is released.
+  # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
+  spec.files = Dir.chdir(File.expand_path(__dir__)) do
+    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+  end
+  spec.bindir = 'exe'
+  spec.executables = spec.files.grep(%r(^exe/)) { |f| File.basename(f) }
+  spec.require_paths = ['lib']
+
+  spec.add_dependency('activerecord', '>=3.2')
+
+  # Development dependencies are defined in the Gemfile (therefore no `spec.add_development_dependency` directives)
 end

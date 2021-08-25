@@ -1,8 +1,6 @@
-Edge Rider [![Tests](https://github.com/makandra/edge_rider/workflows/Tests/badge.svg)](https://github.com/makandra/edge_rider/actions)
-====================================
+# Edge Rider [![Tests](https://github.com/makandra/edge_rider/workflows/Tests/badge.svg)](https://github.com/makandra/edge_rider/actions)
 
-Power tools for ActiveRecord relations (scopes)
--------------------------------------------------
+## Power tools for ActiveRecord relations (scopes)
 
 In ActiveRecord, relations (or scopes) allow you to construct complex queries piece-by-piece
 and then trigger a query or update at a precisely defined moment. If you write any kind
@@ -14,9 +12,7 @@ Edge Rider was created with two intents:
 2. Provide a stable API for working with relations across multiple versions of Rails (since
 Rails has a tradition of breaking details of its relation API every other release).
 
-
-Usage
------
+## Usage
 
 ### Traversing a relation along an association
 
@@ -188,7 +184,6 @@ user.preload_associations { threads: { posts: :author }, messages: :sender }
 which Edge Rider merely makes public. Edge Rider ports this method forward to Rails 3.1+.
 
 
-
 ### Retrieve the class a relation is based on
 
 Edge Rider gives your relations a method `#origin_class` that returns the class the relation is based on.
@@ -226,18 +221,18 @@ slightly different in all versions of Rails (see
 methods are not modified.
 
 
-Installation
-------------
+## Installation
 
 In your `Gemfile` say:
 
-    gem 'edge_rider'
+```ruby
+gem 'edge_rider'
+```
 
 Now run `bundle install` and restart your server.
 
 
-Development
------------
+## Development
 
 - There are tests in `spec`. We only accept PRs with tests.
 - We currently develop using the Ruby version in `.ruby-version`. It is required to change the Ruby Version to cover all Rails version or just use Travis CI.
@@ -254,7 +249,6 @@ If you would like to contribute:
 - Send me a pull request.
 
 
-Credits
--------
+## Credits
 
 Henning Koch from [makandra](http://makandra.com/)

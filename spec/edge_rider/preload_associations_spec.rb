@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe EdgeRider::PreloadAssociations do
 
   describe '.preload_associations' do
