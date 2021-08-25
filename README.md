@@ -235,7 +235,7 @@ Now run `bundle install` and restart your server.
 ## Development
 
 - There are tests in `spec`. We only accept PRs with tests.
-- We currently develop using the Ruby version in `.ruby-version`. It is required to change the Ruby Version to cover all Rails version or just use Travis CI.
+- We currently develop using the Ruby version in `.ruby-version`. It is required to change the Ruby Version to cover all Rails version or just use Github Actions.
 - Put your database credentials into `spec/support/database.yml`. There's a `database.sample.yml` you can use as a template.
 - Create a database `edge_rider_test` in both MySQL and PostgreSQL.
 - There are gem bundles in the project root for each combination of ActiveRecord version and database type that we support.
