@@ -12,7 +12,7 @@ module EdgeRider
       if preloader.method_defined?(:preload) # Rails 4
         preloader.new.preload(*args)
       else
-        preloader.new(*args).run
+        preloader.new(records: args[0], associations: args[1]).call
       end
     end
 
