@@ -25,6 +25,9 @@ GEM
     coderay (1.1.2)
     concurrent-ruby (1.1.9)
     database_cleaner (1.5.3)
+    db-query-matchers (0.10.0)
+      activesupport (>= 4.0, < 7)
+      rspec (~> 3.0)
     diff-lcs (1.2.5)
     gemika (0.6.1)
     has_defaults (0.4.4)
@@ -64,6 +67,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord (~> 4.2.0)
   database_cleaner
+  db-query-matchers
   edge_rider!
   gemika (>= 0.5.0)
   has_defaults

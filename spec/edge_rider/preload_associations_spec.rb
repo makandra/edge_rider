@@ -7,9 +7,7 @@ describe EdgeRider::PreloadAssociations do
       post = Post.create!(topic: topic)
 
       Forum.preload_associations([forum], topics: :posts)
-      Topic.should_not_receive(:new)
-      Post.should_not_receive(:new)
-      forum.topics.collect(&:posts)
+      expect { forum.topics.collect(&:posts) }.to_not make_database_queries
     end
   end
 
@@ -20,9 +18,7 @@ describe EdgeRider::PreloadAssociations do
       post = Post.create!(topic: topic)
 
       forum.preload_associations(topics: :posts)
-      Topic.should_not_receive(:new)
-      Post.should_not_receive(:new)
-      forum.topics.collect(&:posts)
+      expect { forum.topics.collect(&:posts) }.to_not make_database_queries
     end
   end
 

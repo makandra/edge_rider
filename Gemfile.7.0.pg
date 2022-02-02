@@ -11,6 +11,7 @@ gem 'has_defaults' # used by test models
 gem 'rspec'
 gem 'gemika', '>=0.5.0'
 gem 'pry-byebug'
+gem 'db-query-matchers'
 
 # Gem under test
 gem 'edge_rider', path: '.'

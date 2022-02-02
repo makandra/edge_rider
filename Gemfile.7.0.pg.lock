@@ -26,6 +26,7 @@ GEM
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0.0)
     database_cleaner-core (2.0.1)
+    db-query-matchers (0.8.0)
     diff-lcs (1.5.0)
     gemika (0.6.1)
     has_defaults (1.0.0)
@@ -64,6 +65,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord (~> 7.0.1)
   database_cleaner
+  db-query-matchers
   edge_rider!
   gemika (>= 0.5.0)
   has_defaults
