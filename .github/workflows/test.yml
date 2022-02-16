@@ -80,6 +80,10 @@ jobs:
           gemfile: Gemfile.6.1.pg
         - ruby: 3.0.2
           gemfile: Gemfile.6.1.pg
+        - ruby: 2.7.4
+          gemfile: Gemfile.7.0.pg
+        - ruby: 3.0.2
+          gemfile: Gemfile.7.0.pg
     env:
       BUNDLE_GEMFILE: "${{ matrix.gemfile }}"
     steps:
