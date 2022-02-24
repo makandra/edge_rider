@@ -10,10 +10,18 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 ### Compatible changes
 
 
-## 1.1.0 - 2021-08-24
+## 2.1.0 - 2022-02-24
+
+### Compatible changes
+- Add support for Rails 7.0
+- Activate Rubygems MFA
+
+
+## 2.0.0 - 2021-08-24
 
 ### Breaking changes
 - Drop support for Ruby < 2.5.0
+- Drop support for Rails < 3.2
 
 ### Compatible changes
 - Add support for Rails 6.1
