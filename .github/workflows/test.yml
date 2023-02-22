@@ -65,7 +65,8 @@ jobs:
       fail-fast: false
       # Rails 4.2: Ruby 2.5.7
       # Rails 5.2: Ruby 2.5.7 and 2.7.4
-      # Rails 6.1: Ruby 2.5.7, 2.7.4 and 3.0.2
+      # Rails 6.1: Ruby 2.5.7, 2.7.4 and 3.2.1
+      # Rails 7.0: 2.7.4 and 3.2.1
       matrix:
         include:
         - ruby: 2.5.7
@@ -78,11 +79,11 @@ jobs:
           gemfile: Gemfile.5.2.pg
         - ruby: 2.7.4
           gemfile: Gemfile.6.1.pg
-        - ruby: 3.0.2
+        - ruby: 3.2.1
           gemfile: Gemfile.6.1.pg
         - ruby: 2.7.4
           gemfile: Gemfile.7.0.pg
-        - ruby: 3.0.2
+        - ruby: 3.2.1
           gemfile: Gemfile.7.0.pg
     env:
       BUNDLE_GEMFILE: "${{ matrix.gemfile }}"
