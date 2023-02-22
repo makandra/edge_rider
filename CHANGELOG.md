@@ -9,6 +9,8 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ### Compatible changes
 
+- Add support for Ruby 3.2
+
 
 ## 2.1.0 - 2022-02-24
 
