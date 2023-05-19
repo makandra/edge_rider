@@ -8,9 +8,18 @@ module EdgeRider
       def collect_ids
         collect do |obj|
           case obj
-            when Integer then obj
-            when ActiveRecord::Base then obj.id
-            else raise Uncollectable, "Cannot collect an id from #{obj.inspect}"
+          when Integer
+            obj
+          when ActiveRecord::Base
+            obj.id
+          when String
+            if obj.match(/\A\d+\z/)
+              obj.to_i
+            else
+              raise Uncollectable, "Cannot collect an id from #{obj.inspect}"
+            end
+          else
+            raise Uncollectable, "Cannot collect an id from #{obj.inspect}"
           end
         end
       end
