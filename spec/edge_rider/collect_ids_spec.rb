@@ -32,10 +32,16 @@ describe EdgeRider::CollectIds do
 
     end
 
+    context 'when called on a String' do
+      it 'should not be defined' do
+        expect { ("3").collect_ids }.to raise_error(NoMethodError)
+      end
+    end
+
     context 'when called on another scalar value' do
 
       it 'should not be defined' do
-        expect { "foo".collect_ids }.to raise_error(NoMethodError)
+        expect { (3.2).collect_ids }.to raise_error(NoMethodError)
       end
 
     end
@@ -54,6 +60,45 @@ describe EdgeRider::CollectIds do
         forum_1 = Forum.create!(id: 1)
         forum_2 = Forum.create!(id: 2)
         [forum_1, forum_2].collect_ids.should =~ [1, 2]
+      end
+
+    end
+
+    context 'when called on an array of Strings' do
+
+      it 'should return a list of integers if every entry looks like one' do
+        ['1', '751322312'].collect_ids.should == [1, 751322312]
+      end
+
+      it 'should ignore Octal notations' do
+        ['0377'].collect_ids.should == [377]
+      end
+
+      it 'should raise an error for anything but natural numbers' do
+        expect { ['1e10'].collect_ids }.to raise_error(EdgeRider::CollectIds::Uncollectable)
+        expect { ['1.1'].collect_ids }.to raise_error(EdgeRider::CollectIds::Uncollectable)
+        expect { ['0x08'].collect_ids }.to raise_error(EdgeRider::CollectIds::Uncollectable)
+        expect { ['-1'].collect_ids }.to raise_error(EdgeRider::CollectIds::Uncollectable)
+        expect { ['1_23'].collect_ids }.to raise_error(EdgeRider::CollectIds::Uncollectable)
+        expect { ['1.23r'].collect_ids }.to raise_error(EdgeRider::CollectIds::Uncollectable)
+      end
+
+      it 'should raise an error for strings that contain other characters apart from the number' do
+        expect { [' 1'].collect_ids }.to raise_error(EdgeRider::CollectIds::Uncollectable)
+        expect { ['id:3'].collect_ids }.to raise_error(EdgeRider::CollectIds::Uncollectable)
+        expect { ['3:id'].collect_ids }.to raise_error(EdgeRider::CollectIds::Uncollectable)
+      end
+
+      it 'should raise an error for other non-numeric strings' do
+        expect { ['foo'].collect_ids }.to raise_error(EdgeRider::CollectIds::Uncollectable)
+      end
+
+    end
+
+    context 'when called on an array of arrays' do
+
+      it 'should raise an error instead of recursively parsing potential user input' do
+        expect { [1, [[[2]]]].collect_ids }.to raise_error(EdgeRider::CollectIds::Uncollectable)
       end
 
     end

@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ### Compatible changes
 
+- `collect_ids` is now capable of parsing "string arrays" like `['1', '2', '3']`. This can be handy when handling params with ID arrays.
 
 ## 2.2.0 - 2023-03-01
 
