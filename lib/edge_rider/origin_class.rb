@@ -9,7 +9,9 @@ module EdgeRider
       scope
     end
 
-    ActiveRecord::Base.extend(self)
-
   end
+end
+
+ActiveSupport.on_load :active_record do
+  extend(EdgeRider::OriginClass)
 end

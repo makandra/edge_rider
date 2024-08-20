@@ -5,8 +5,9 @@ module EdgeRider
       ids = collect_ids
       EdgeRider::Util.exclusive_query(self, id: ids)
     end
-
-    ActiveRecord::Base.send(:extend, self)
-
   end
+end
+
+ActiveSupport.on_load :active_record do
+  extend(EdgeRider::ToIdQuery)
 end

@@ -36,8 +36,6 @@ module EdgeRider
 
     end
 
-    ::ActiveRecord::Base.send(:include, ActiveRecordValue)
-
     module ActiveRecordScope
 
       def collect_ids
@@ -45,10 +43,6 @@ module EdgeRider
       end
 
     end
-
-    ::ActiveRecord::Base.send(:extend, ActiveRecordScope)
-    ::ActiveRecord::Associations::HasManyAssociation.send(:include, ActiveRecordScope)
-    ::ActiveRecord::Associations::HasManyThroughAssociation.send(:include, ActiveRecordScope)
 
     module Integer
 
@@ -61,4 +55,11 @@ module EdgeRider
     ::Integer.send(:include, Integer)
 
   end
+end
+
+ActiveSupport.on_load :active_record do
+  extend(EdgeRider::CollectIds::ActiveRecordScope)
+  include(EdgeRider::CollectIds::ActiveRecordValue)
+  ActiveRecord::Associations::HasManyAssociation.send(:include, EdgeRider::CollectIds::ActiveRecordScope)
+  ActiveRecord::Associations::HasManyThroughAssociation.send(:include, EdgeRider::CollectIds::ActiveRecordScope)
 end

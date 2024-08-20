@@ -20,8 +20,10 @@ module EdgeRider
         preloader.new(records: records, associations: associations, **options).call
       end
     end
-
-    ActiveRecord::Base.send(:extend, self)
-    ActiveRecord::Base.send(:include, PreloadAssociationsInstanceMethod)
   end
+end
+
+ActiveSupport.on_load :active_record do
+  extend(EdgeRider::PreloadAssociations)
+  include(EdgeRider::PreloadAssociations::PreloadAssociationsInstanceMethod)
 end

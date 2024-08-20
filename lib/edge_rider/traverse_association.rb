@@ -16,7 +16,7 @@ module EdgeRider
         # In Rails 4, conditions on a scope are expressed as a lambda parameter
         # that is called `scope`.
         raise NotImplementedError if reflection.options[:conditions] or (reflection.respond_to?(:scope) && reflection.scope)
-           
+
         if reflection.macro == :belongs_to # belongs_to
           ids = scope.collect_column(foreign_key, distinct: true)
           scope = EdgeRider::Util.exclusive_query(reflection.klass, id: ids)
@@ -40,7 +40,9 @@ module EdgeRider
 
     end
 
-    ActiveRecord::Base.extend(self)
-
   end
+end
+
+ActiveSupport.on_load :active_record do
+  extend(EdgeRider::TraverseAssociation)
 end

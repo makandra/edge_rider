@@ -16,7 +16,9 @@ module EdgeRider
       scope.pluck(qualified_column_name)
     end
 
-    ActiveRecord::Base.extend(self)
-
   end
+end
+
+ActiveSupport.on_load :active_record do
+  extend(EdgeRider::CollectColumn)
 end
