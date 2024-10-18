@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    edge_rider (2.3.0)
+    edge_rider (2.3.1)
       activerecord (>= 3.2)
 
 GEM
@@ -75,4 +75,4 @@ DEPENDENCIES
   rspec
 
 BUNDLED WITH
-   2.3.4
+   2.3.13
