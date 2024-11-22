@@ -9,6 +9,8 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ### Compatible changes
 
+- Add support for Rails 7.1, 7.2 and Ruby 3.3
+
 
 ## 2.3.1 - 2024-10-18
 
