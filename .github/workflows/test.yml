@@ -8,46 +8,6 @@ name: Tests
     branches:
     - master
 jobs:
-  test_mysql:
-    runs-on: ubuntu-20.04
-    services:
-      mysql:
-        image: mysql:5.6
-        env:
-          MYSQL_ROOT_PASSWORD: password
-        options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout
-          5s --health-retries 5
-        ports:
-        - 3306:3306
-    strategy:
-      fail-fast: false
-      # Rails 4.2: Ruby 2.5.7
-      # Rails 5.2: Ruby 2.5.7 and 2.7.4
-      matrix:
-        include:
-        - ruby: 2.5.7
-          gemfile: Gemfile.4.2.mysql2
-        - ruby: 2.5.7
-          gemfile: Gemfile.5.2.mysql2
-        - ruby: 2.7.4
-          gemfile: Gemfile.5.2.mysql2
-    env:
-      BUNDLE_GEMFILE: "${{ matrix.gemfile }}"
-    steps:
-    - uses: actions/checkout@v2
-    - name: Install ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: "${{ matrix.ruby }}"
-    - name: Setup database
-      run: |
-        mysql -e 'create database IF NOT EXISTS test;' -u root --password=password -P 3306 -h 127.0.0.1
-    - name: Bundle
-      run: |
-        gem install bundler:2.2.26
-        bundle install --no-deployment
-    - name: Run tests
-      run: bundle exec rspec
   test_pg:
     runs-on: ubuntu-22.04
     services:
@@ -61,20 +21,8 @@ jobs:
         - 5432:5432
     strategy:
       fail-fast: false
-      # Rails 4.2: Ruby 2.5.7
-      # Rails 5.2: Ruby 2.5.7 and 2.7.4
-      # Rails 6.1: Ruby 2.5.7, 2.7.4 and 3.2.1
-      # Rails 7.0: 2.7.4 and 3.2.1
       matrix:
         include:
-        - ruby: 2.5.7
-          gemfile: Gemfile.4.2.pg
-        - ruby: 2.5.7
-          gemfile: Gemfile.5.2.pg
-        - ruby: 2.5.7
-          gemfile: Gemfile.6.1.pg
-        - ruby: 2.7.4
-          gemfile: Gemfile.5.2.pg
         - ruby: 2.7.4
           gemfile: Gemfile.6.1.pg
         - ruby: 3.2.1
@@ -85,12 +33,22 @@ jobs:
           gemfile: Gemfile.7.1.pg
         - ruby: 3.2.1
           gemfile: Gemfile.7.0.pg
+        - ruby: 3.2.1
+          gemfile: Gemfile.8.0.pg
         - ruby: 3.3.6
           gemfile: Gemfile.7.0.pg
         - ruby: 3.3.6
           gemfile: Gemfile.7.1.pg
         - ruby: 3.3.6
           gemfile: Gemfile.7.2.pg
+        - ruby: 3.3.6
+          gemfile: Gemfile.8.0.pg
+        - ruby: 3.4.1
+          gemfile: Gemfile.7.1.pg
+        - ruby: 3.4.1
+          gemfile: Gemfile.7.2.pg
+        - ruby: 3.4.1
+          gemfile: Gemfile.8.0.pg
     env:
       BUNDLE_GEMFILE: "${{ matrix.gemfile }}"
     steps:

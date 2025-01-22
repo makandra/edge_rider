@@ -6,13 +6,7 @@ module EdgeRider
       qualified_column_name = EdgeRider::Util.qualify_column_name(self, column_name)
 
       scope = scoped({})
-      if distinct
-        if ActiveRecord::VERSION::MAJOR < 5
-          scope = scope.uniq
-        else
-          scope = scope.distinct
-        end
-      end
+      scope = scope.distinct if distinct
       scope.pluck(qualified_column_name)
     end
 

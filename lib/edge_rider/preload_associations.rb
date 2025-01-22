@@ -9,9 +9,7 @@ module EdgeRider
     def preload_associations(*args)
       preloader = ActiveRecord::Associations::Preloader
 
-      if preloader.method_defined?(:run) # Rails 3.2 / Rails 4
-        preloader.new(*args).run
-      elsif preloader.method_defined?(:preload) # Rails 5 to Rails 6.1
+      if preloader.method_defined?(:preload) # Rails 5 to Rails 6.1
         preloader.new.preload(*args)
       else # Rails 7+
         records = args.first

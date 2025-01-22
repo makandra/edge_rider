@@ -26,7 +26,5 @@ module EdgeRider
 end
 
 ActiveSupport.on_load :active_record do
-  if ActiveRecord::VERSION::MAJOR >= 4
-    extend(EdgeRider::Scoped)
-  end
+  extend(EdgeRider::Scoped)
 end
