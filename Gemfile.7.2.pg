@@ -10,7 +10,7 @@ gem 'database_cleaner'
 gem 'has_defaults' # used by test models
 gem 'rspec'
 gem 'gemika', '>=0.8.1'
-gem 'pry-byebug', '>=3.10.1'
+gem 'pry-byebug', '>=3.11.0'
 gem 'db-query-matchers'
 
 # Gem under test

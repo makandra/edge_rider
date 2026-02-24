@@ -78,7 +78,7 @@ GEM
       concurrent-ruby (~> 1.0)
 
 PLATFORMS
-  x86_64-linux
+  ruby
 
 DEPENDENCIES
   activerecord (~> 7.1.5)
