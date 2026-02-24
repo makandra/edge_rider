@@ -23,32 +23,43 @@ jobs:
       fail-fast: false
       matrix:
         include:
+        # legacy - If a version breaks, just drop it - don't fix it.
         - ruby: 2.7.4
-          gemfile: Gemfile.6.1.pg
-        - ruby: 3.2.1
           gemfile: Gemfile.6.1.pg
         - ruby: 2.7.4
           gemfile: Gemfile.7.0.pg
         - ruby: 2.7.4
           gemfile: Gemfile.7.1.pg
         - ruby: 3.2.1
+          gemfile: Gemfile.6.1.pg
+        - ruby: 3.2.1
           gemfile: Gemfile.7.0.pg
+
+        # Officially supported
+        - ruby: 3.2.1
+          gemfile: Gemfile.7.2.pg
         - ruby: 3.2.1
           gemfile: Gemfile.8.0.pg
-        - ruby: 3.3.6
-          gemfile: Gemfile.7.0.pg
-        - ruby: 3.3.6
-          gemfile: Gemfile.7.1.pg
+        - ruby: 3.2.1
+          gemfile: Gemfile.8.1.pg
         - ruby: 3.3.6
           gemfile: Gemfile.7.2.pg
         - ruby: 3.3.6
           gemfile: Gemfile.8.0.pg
-        - ruby: 3.4.1
-          gemfile: Gemfile.7.1.pg
+        - ruby: 3.3.6
+          gemfile: Gemfile.8.1.pg
         - ruby: 3.4.1
           gemfile: Gemfile.7.2.pg
         - ruby: 3.4.1
           gemfile: Gemfile.8.0.pg
+        - ruby: 3.4.1
+          gemfile: Gemfile.8.1.pg
+        - ruby: 4.0.0
+          gemfile: Gemfile.7.2.pg
+        - ruby: 4.0.0
+          gemfile: Gemfile.8.0.pg
+        - ruby: 4.0.0
+          gemfile: Gemfile.8.1.pg
     env:
       BUNDLE_GEMFILE: "${{ matrix.gemfile }}"
     steps:
